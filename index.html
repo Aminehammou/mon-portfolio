@@ -37,17 +37,25 @@
     </main>
 
     <script>
-        // Charge et affiche le Markdown dynamiquement
-        fetch('assets/md/README.md')
-            .then(response => response.text())
-            .then(markdown => {
-                document.getElementById('markdown-container').innerHTML = marked.parse(markdown);
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du Markdown :', error);
-                document.getElementById('markdown-container').innerHTML =
-                    '<p>Erreur de chargement de la documentation. Veuillez réessayer plus tard.</p>';
-            });
-    </script>
+    // URL brute du README.md sur GitHub
+    const readmeUrl = 'https://raw.githubusercontent.com/votre-utilisateur/TestComposants_Encoder-1/main/README.md';
+
+    fetch(readmeUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP : ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(markdown => {
+            document.getElementById('markdown-container').innerHTML = marked.parse(markdown);
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            document.getElementById('markdown-container').innerHTML =
+                `<p style="color: red;">Erreur de chargement du README : ${error.message}</p>`;
+        });
+</script>
+
 </body>
 </html>
