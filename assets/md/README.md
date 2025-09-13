@@ -15,4 +15,4 @@ Un framework UI modulaire pour ESP32 avec écran TFT et encodeur rotatif.
 - PlatformIO
 
 ## Lien
-[Voir sur GitHub](https://github.com/Aminehammou/TestComposants_Encoder)
+[https://github.com/Aminehammou/TestComposants_Encoder](https://github.com/Aminehammou/TestComposants_Encoder)
