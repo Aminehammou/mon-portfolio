@@ -1,3 +1,11 @@
+/* (Copiez le CSS de l'étape 3 du guide GitHub Pages) */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+    color: var(--dark-color);
+    margin-top: 1.5rem;
+}
+
 /* Reset et variables */
 :root {
     --primary-color: #007BFF;
