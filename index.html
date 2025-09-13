@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Amine Hammou</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Amine Hammou</h1>
+            <p>Développeur Embarqué & Créateur de Frameworks UI</p>
+            <nav>
+                <ul>
+                    <li><a href="#projects">Projets</a></li>
+                    <li><a href="#about">À Propos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2>Mes Projets</h2>
+            <div class="project-card">
+                <h3>TestComposants_Encoder-1</h3>
+                <p>Framework UI pour ESP32 avec écran TFT et encodeur rotatif.</p>
+                <a href="https://github.com/Aminehammou/TestComposants_Encoder" class="button">
+                    <i class="fab fa-github"></i> Voir sur GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>Documentation du Projet</h2>
+            <!-- CONTENU MARKDOWN -->
+            <h2 id="introduction">Introduction</h2>
+            <p>Ce projet est une application de démonstration complète pour la gestion d&#39;une interface utilisateur (UI) sur un écran TFT, pilotée principalement par un encodeur rotatif. Il met en œuvre une architecture modulaire basée sur des &quot;pages&quot; et des composants UI interactifs, tout en intégrant une gestion avancée de la mise en veille pour optimiser la consommation d&#39;énergie.</p>
+            <p>L&#39;objectif est de fournir un cadre robuste et flexible pour le développement d&#39;interfaces utilisateur embarquées, particulièrement adapté aux dispositifs nécessitant une interaction simple et intuitive via un encodeur.</p>
+            <h2 id="fonctionnalit-s-principales">Fonctionnalités Principales</h2>
+            <ul>
+            <li><strong>Gestion de l&#39;Interface Utilisateur par Pages</strong>: L&#39;application est structurée en plusieurs écrans (pages) distincts, permettant une organisation logique du contenu et des fonctionnalités.</li>
+            <li><strong>Navigation et Interaction via Encodeur Rotatif</strong>: L&#39;utilisateur interagit avec l&#39;interface en tournant l&#39;encodeur pour naviguer et en appuyant sur son bouton pour sélectionner ou confirmer.</li>
+            <li><strong>Affichage sur Écran TFT</strong>: L&#39;interface est rendue sur un écran TFT couleur, utilisant la bibliothèque <code>TFT_eSPI</code> pour le dessin et <code>U8g2</code> pour la gestion des polices.</li>
+            <li><strong>Gestion Avancée de la Mise en Veille</strong>: Intégration d&#39;un <code>SleepManager</code> pour gérer l&#39;inactivité, éteindre/allumer l&#39;écran et ajuster la luminosité, contribuant à l&#39;efficacité énergétique.</li>
+            <li><strong>Divers Composants d&#39;Interface Utilisateur Interactifs</strong>: Une suite de composants UI personnalisés est disponible pour construire des interfaces riches et fonctionnelles.</li>
+            <li><strong>Gestion du Focus Intelligente</strong>: Un système de focus permet de naviguer intuitivement entre les pages et les composants au sein d&#39;une page.</li>
+            </ul>
+            <h2 id="composants-d-interface-utilisateur">Composants d&#39;Interface Utilisateur</h2>
+            <p>Le projet utilise et démontre l&#39;utilisation de plusieurs composants UI personnalisés, chacun ayant un rôle spécifique:</p>
+            <ul>
+            <li><strong>UIEncoderLabel</strong>: Utilisé pour afficher du texte statique ou dynamique. Peut être interactif pour déclencher des actions (ex: ouvrir un clavier virtuel).</li>
+            <li><strong>UIEncoderCheckbox</strong>: Permet à l&#39;utilisateur de basculer un état (activé/désactivé).</li>
+            <li><strong>UIEncoderButton</strong>: Représente un bouton cliquable qui déclenche une action spécifique.</li>
+            <li><strong>UIEncoderComboBox</strong>: Offre une liste déroulante de choix, où l&#39;utilisateur peut sélectionner une option.</li>
+            <li><strong>UIEncoderSpinEdit</strong>: Un champ de saisie numérique qui permet d&#39;incrémenter ou de décrémenter une valeur à l&#39;aide de l&#39;encodeur.</li>
+            <li><strong>UIEncoderRadioGroup / UIEncoderRadioButton</strong>: Permet de présenter un groupe d&#39;options où une seule peut être sélectionnée à la fois. Le <code>UIEncoderRadioGroup</code> gère ses <code>UIEncoderRadioButton</code> enfants.</li>
+            <li><strong>UIEncoderListBox</strong>: Affiche une liste d&#39;éléments défilable, permettant la sélection d&#39;un élément.</li>
+            <li><strong>UIEncoderKeyboard</strong>: Un clavier virtuel à l&#39;écran, utilisé pour la saisie de texte dans certains composants (ex: <code>UIEncoderLabel</code> interactif).</li>
+            <li><strong>UIEncoderTextArea</strong>: Une zone de texte multi-lignes et défilable, idéale pour afficher de longs blocs de texte (logs, descriptions, etc.).</li>
+            </ul>
+            <h2 id="structure-de-l-application">Structure de l&#39;Application</h2>
+            <p>L&#39;architecture de l&#39;application est centrée autour de la classe <code>ApplicationManager</code>:</p>
+            <ul>
+            <li><strong><code>ApplicationManager</code></strong>: C&#39;est la classe principale qui orchestre l&#39;ensemble de l&#39;application. Elle initialise le matériel (écran, encodeur), gère les différentes pages de l&#39;interface, et coordonne les interactions utilisateur avec les composants UI.</li>
+            <li><strong>Pages (<code>setupPageX()</code> )</strong>: Chaque fonction <code>setupPageX()</code> (ex: <code>setupPage0</code>, <code>setupPage1</code>, etc.) est responsable de la création et de la configuration des composants UI spécifiques à une page donnée. Ces pages sont ensuite gérées par un <code>UIEncoderPageControl</code>.</li>
+            <li><strong><code>UIEncoderPageControl</code></strong>: Ce composant gère la navigation entre les différentes pages de l&#39;application, affichant des onglets et permettant à l&#39;utilisateur de passer d&#39;une page à l&#39;autre.</li>
+            <li><strong><code>UIEncoderManager</code></strong>: Un gestionnaire centralisé pour les composants UI de la page actuellement affichée, facilitant la gestion du focus et le dessin.</li>
+            <li><strong><code>SleepManager</code></strong>: Gère les états de veille de l&#39;appareil en fonction de l&#39;activité de l&#39;utilisateur, contrôlant l&#39;affichage et la luminosité.</li>
+            </ul>
+            <h3 id="hooks-planifi-s-par-page-scheduler-">Hooks planifiés par page (Scheduler)</h3>
+            <p>Pour éviter du code périodique dispersé et des timers ad hoc, l&#39;application utilise un scheduler simple par page:</p>
+            <ul>
+            <li><strong>scheduledHooks</strong>: liste de tâches avec un intervalle en millisecondes (0 = chaque boucle).</li>
+            <li>Les hooks sont exécutés uniquement quand la page est active.</li>
+            </ul>
+            <p>Exemples d&#39;ajout dans <code>setupPageX()</code>:</p>
+            <pre><code class="lang-cpp">// 1) Hook au chaque cycle
+            std::vector<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PageUpdateTask</span>&gt;</span></span> scheduled;
+            scheduled.push_back(PageUpdateTask{[<span class="hljs-string">this</span>](<span class="hljs-link"></span>) {
+            <span class="hljs-code">    // mise à jour rapide</span>
+            }, 0});
+
+            // 2) Hook cadencé (toutes les 100 ms)
+            scheduled.push_back(PageUpdateTask{[<span class="hljs-string">this</span>](<span class="hljs-link"></span>) {
+            <span class="hljs-code">    // acquisition capteur / animation</span>
+            }, 100});
+
+            return PageInfo(std::move(components), fondPage, std::vector<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">std::function</span>&lt;<span class="hljs-attr">void</span>(<span class="hljs-attr">void</span>)&gt;</span></span>&gt;{}, std::move(scheduled));
+            </code></pre>
+            <p>Pages migrées:</p>
+            <ul>
+            <li><strong>Page 9 (Voyants LED)</strong>: lecture commutateurs → LEDs (30 ms)</li>
+            <li><strong>Page 11 (Progression)</strong>: incrément automatique (50 ms)</li>
+            <li><strong>Page 13 (Graphique)</strong>: lecture analogique et ajout de point (100 ms)</li>
+            <li><strong>Page 14 (PCF8591)</strong>: AIN0..3 en rotation (100 ms), NTC/LDR (200 ms)</li>
+            </ul>
+            <h3 id="gabarit-d-une-nouvelle-page-avec-hook-planifi-">Gabarit d’une nouvelle page avec hook planifié</h3>
+            <pre><code class="lang-cpp">PageInfo ApplicationManager::setupPageX() { <span class="hljs-comment">// Mon exemple de page</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">unique_ptr</span>&lt;UIEncoderComponent&gt;&gt; components;
+    <span class="hljs-keyword">uint16_t</span> fondPage = Theme::Color::Noir;
+
+    <span class="hljs-comment">// 1) Créer les composants UI</span>
+    UIEncoderLabelStyle ls = Theme::Label::getPrimaryStyle();
+    ls.bgColor = fondPage;
+    <span class="hljs-keyword">auto</span> label = compat::make_unique&lt;UIEncoderLabel&gt;(
+        u8f, UIRect(<span class="hljs-number">10</span>, <span class="hljs-number">60</span>, <span class="hljs-number">300</span>, <span class="hljs-number">20</span>), <span class="hljs-string">"Valeur capteur: --"</span>, ls, fondPage);
+    UIEncoderLabel* labelPtr = label.get(); <span class="hljs-comment">// pointeur brut si besoin dans le hook</span>
+    components.push_back(<span class="hljs-built_in">std</span>::move(label));
+
+    <span class="hljs-comment">// 2) Hooks planifiés (scheduler)</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PageUpdateTask&gt; scheduled;
+    scheduled.push_back(PageUpdateTask{
+        [<span class="hljs-keyword">this</span>, labelPtr]() {
+            <span class="hljs-keyword">if</span> (!labelPtr) <span class="hljs-keyword">return</span>;
+            <span class="hljs-comment">// Exemple: lire un capteur et mettre à jour le label</span>
+            <span class="hljs-keyword">int</span> value = analogRead(<span class="hljs-number">34</span>); <span class="hljs-comment">// adapter la source</span>
+            labelPtr-&gt;setText(String(<span class="hljs-string">"Valeur capteur: "</span>) + String(value));
+        },
+        <span class="hljs-number">100</span> <span class="hljs-comment">// intervalle en ms (0 = chaque boucle)</span>
+    });
+
+    <span class="hljs-comment">// 3) Retourner la page</span>
+    <span class="hljs-keyword">return</span> PageInfo(<span class="hljs-built_in">std</span>::move(components), fondPage,
+                    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::function&lt;<span class="hljs-keyword">void</span>(<span class="hljs-keyword">void</span>)&gt;&gt;{}, <span class="hljs-comment">// hooks legacy (optionnels)</span>
+                    <span class="hljs-built_in">std</span>::move(scheduled));
+}
+</code></pre>
+<p>Conseils:</p>
+<ul>
+<li><strong>Pointeurs bruts</strong>: conservez des pointeurs bruts vers les composants si le hook doit les mettre à jour.</li>
+<li><strong>Activation conditionnelle</strong>: les hooks ne tournent que lorsque la page est active.</li>
+<li><strong>Encodeur</strong>: ajustez la sensibilité/accélération via <code>_pageConfigs[index]</code> dans <code>setup()</code> si nécessaire (ex: <code>encoderThreshold = 1</code>).</li>
+</ul>
+<h3 id="gabarit-minimal-page-sans-hook-">Gabarit minimal (page sans hook)</h3>
+<pre><code class="lang-cpp">PageInfo <span class="hljs-symbol">ApplicationManager:</span><span class="hljs-symbol">:setupPageY</span>() { <span class="hljs-regexp">//</span> Page stateless
+    <span class="hljs-symbol">std:</span><span class="hljs-symbol">:vector&lt;std</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:unique_ptr&lt;UIEncoderComponent&gt;&gt;</span> components;
+    uint16_t fondPage = <span class="hljs-symbol">Theme:</span><span class="hljs-symbol">:Color</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Noir</span>;
+
+    <span class="hljs-regexp">//</span> Composant simple (label)
+    UIEncoderLabelStyle ls = <span class="hljs-symbol">Theme:</span><span class="hljs-symbol">:Label</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:getPrimaryStyle</span>();
+    ls.bgColor = fondPage;
+    auto label = <span class="hljs-symbol">compat:</span><span class="hljs-symbol">:make_unique&lt;UIEncoderLabel&gt;</span>(
+        u8f, UIRect(<span class="hljs-number">10</span>, <span class="hljs-number">60</span>, <span class="hljs-number">280</span>, <span class="hljs-number">20</span>), <span class="hljs-string">"Ma page statique"</span>, ls, fondPage);
+    components.push_back(<span class="hljs-symbol">std:</span><span class="hljs-symbol">:move</span>(label));
+
+    <span class="hljs-regexp">//</span> Pas de hooks planifiés
+    <span class="hljs-keyword">return</span> PageInfo(<span class="hljs-symbol">std:</span><span class="hljs-symbol">:move</span>(components), fondPage);
+}
+</code></pre>
+<h3 id="gabarit-capteur-i2c-label-pcf8591-">Gabarit capteur I2C + label (PCF8591)</h3>
+<pre><code class="lang-cpp">PageInfo ApplicationManager::setupPageZ() { <span class="hljs-comment">// Exemple avec lecture I2C</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">unique_ptr</span>&lt;UIEncoderComponent&gt;&gt; components;
+    <span class="hljs-keyword">uint16_t</span> fondPage = Theme::Color::Noir;
+
+    <span class="hljs-comment">// Label d'affichage</span>
+    UIEncoderLabelStyle ls = Theme::Label::getPrimaryStyle();
+    ls.bgColor = fondPage;
+    <span class="hljs-keyword">auto</span> label = compat::make_unique&lt;UIEncoderLabel&gt;(
+        u8f, UIRect(<span class="hljs-number">10</span>, <span class="hljs-number">60</span>, <span class="hljs-number">300</span>, <span class="hljs-number">20</span>), <span class="hljs-string">"AIN0: --"</span>, ls, fondPage);
+    UIEncoderLabel* labelPtr = label.get();
+    components.push_back(<span class="hljs-built_in">std</span>::move(label));
+
+    <span class="hljs-comment">// Hook planifié: lecture stabilisée AIN0 toutes les 100 ms</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PageUpdateTask&gt; scheduled;
+    scheduled.push_back(PageUpdateTask{
+        [<span class="hljs-keyword">this</span>, labelPtr]() {
+            <span class="hljs-keyword">if</span> (!labelPtr || !_pcf8591) <span class="hljs-keyword">return</span>;
+            <span class="hljs-comment">// Dummy read + petit délai pour stabiliser PCF8591</span>
+            (<span class="hljs-keyword">void</span>)_pcf8591-&gt;analogRead(<span class="hljs-number">0</span>);
+            delay(<span class="hljs-number">2</span>);
+            <span class="hljs-keyword">int</span> raw = _pcf8591-&gt;analogRead(<span class="hljs-number">0</span>);
+            <span class="hljs-keyword">float</span> vref = (_ldrConfig.vref &gt; <span class="hljs-number">0.0f</span>) ? _ldrConfig.vref : <span class="hljs-number">3.3f</span>;
+            <span class="hljs-keyword">float</span> volts = (raw &gt;= <span class="hljs-number">0</span>) ? (<span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">float</span>&gt;(raw) / <span class="hljs-number">255.0f</span>) * vref : NAN;
+            labelPtr-&gt;setText(String(<span class="hljs-string">"AIN0: "</span>) + String(raw) + <span class="hljs-string">" ("</span> + String(volts, <span class="hljs-number">2</span>) + <span class="hljs-string">"V)"</span>);
+        },
+        <span class="hljs-number">100</span>
+    });
+
+    <span class="hljs-keyword">return</span> PageInfo(<span class="hljs-built_in">std</span>::move(components), fondPage,
+                    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::function&lt;<span class="hljs-keyword">void</span>(<span class="hljs-keyword">void</span>)&gt;&gt;{},
+                    <span class="hljs-built_in">std</span>::move(scheduled));
+}
+</code></pre>
+<h3 id="gabarit-page-avec-clavier-virtuel-uiencoderkeyboard-">Gabarit page avec clavier virtuel (UIEncoderKeyboard)</h3>
+<pre><code class="lang-cpp">PageInfo <span class="hljs-symbol">ApplicationManager:</span><span class="hljs-symbol">:setupPageKeyboard</span>() {
+    <span class="hljs-symbol">std:</span><span class="hljs-symbol">:vector&lt;std</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:unique_ptr&lt;UIEncoderComponent&gt;&gt;</span> components;
+    uint16_t fondPage = <span class="hljs-symbol">Theme:</span><span class="hljs-symbol">:Color</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Noir</span>;
+
+    <span class="hljs-regexp">//</span> Label éditable (déclenchement du clavier via clic)
+    UIEncoderLabelStyle ls = <span class="hljs-symbol">Theme:</span><span class="hljs-symbol">:Label</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:getPrimaryStyle</span>();
+    ls.bgColor = fondPage;
+    auto label = <span class="hljs-symbol">compat:</span><span class="hljs-symbol">:make_unique&lt;UIEncoderLabel&gt;</span>(
+        u8f, UIRect(<span class="hljs-number">10</span>, <span class="hljs-number">60</span>, <span class="hljs-number">300</span>, <span class="hljs-number">20</span>), <span class="hljs-string">"Entrez votre nom"</span>, ls, fondPage);
+    UIEncoderLabel* labelPtr = label.get();
+    components.push_back(<span class="hljs-symbol">std:</span><span class="hljs-symbol">:move</span>(label));
+
+    <span class="hljs-regexp">//</span> <span class="hljs-symbol">Hook:</span> ouvrir le clavier si clic sur le label (exécution à chaque cycle)
+    <span class="hljs-symbol">std:</span><span class="hljs-symbol">:vector&lt;PageUpdateTask&gt;</span> scheduled;
+    scheduled.push_back(PageUpdateTask{
+        [this, labelPtr]() {
+            if (!labelPtr) <span class="hljs-keyword">return</span>;
+            if (labelPtr-&gt;wasClicked()) { <span class="hljs-regexp">//</span> méthode idiomatique selon votre implémentation
+                if (!globalKeyboard) {
+                    globalKeyboard = <span class="hljs-symbol">compat:</span><span class="hljs-symbol">:make_unique&lt;UIEncoderKeyboard&gt;</span>(u8f, getTFT());
+                }
+                globalKeyboard-&gt;open(
+                    <span class="hljs-string">"Saisie texte"</span>,
+                    labelPtr-&gt;getText(),
+                    <span class="hljs-regexp">//</span> Callback de validation
+                    [this, labelPtr](const String&amp; text) {
+                        if (labelPtr) labelPtr-&gt;setText(text);
+                        <span class="hljs-regexp">//</span> Retour focus au contenu
+                        if (auto pc = getPageControl()) pc-&gt;focusContent();
+                    }
+                );
+            }
+        },
+        <span class="hljs-number">0</span>
+    });
+
+    <span class="hljs-keyword">return</span> PageInfo(<span class="hljs-symbol">std:</span><span class="hljs-symbol">:move</span>(components), fondPage,
+                    <span class="hljs-symbol">std:</span><span class="hljs-symbol">:vector&lt;std</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:function&lt;void</span>(void)&gt;&gt;{},
+                    <span class="hljs-symbol">std:</span><span class="hljs-symbol">:move</span>(scheduled));
+}
+</code></pre>
+<h3 id="gabarit-page-avec-modal-uiencodermodal-">Gabarit page avec modal (UIEncoderModal)</h3>
+<pre><code class="lang-cpp">PageInfo ApplicationManager::setupPageModal() {
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">unique_ptr</span>&lt;UIEncoderComponent&gt;&gt; components;
+    <span class="hljs-keyword">uint16_t</span> fondPage = Theme::Color::Noir;
+
+    <span class="hljs-comment">// Bouton qui ouvre une modal</span>
+    <span class="hljs-keyword">auto</span> btnStyle = Theme::Button::getPrimaryStyle();
+    <span class="hljs-keyword">auto</span> btn = compat::make_unique&lt;UIEncoderButton&gt;(
+        u8f, UIRect(<span class="hljs-number">10</span>, <span class="hljs-number">60</span>, <span class="hljs-number">140</span>, <span class="hljs-number">28</span>), <span class="hljs-string">"Ouvrir modal"</span>, btnStyle, fondPage);
+    UIEncoderButton* btnPtr = btn.get();
+    components.push_back(<span class="hljs-built_in">std</span>::move(btn));
+
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PageUpdateTask&gt; scheduled;
+    scheduled.push_back(PageUpdateTask{
+        [<span class="hljs-keyword">this</span>, btnPtr]() {
+            <span class="hljs-keyword">if</span> (!btnPtr) <span class="hljs-keyword">return</span>;
+            <span class="hljs-keyword">if</span> (btnPtr-&gt;wasClicked()) {
+                <span class="hljs-keyword">if</span> (!_modal) {
+                    _modal = compat::make_unique&lt;UIEncoderModal&gt;(u8f, getTFT());
+                }
+                UIEncoderModal::Options opts;
+                opts.title = <span class="hljs-string">"Confirmation"</span>;
+                opts.message = <span class="hljs-string">"Voulez-vous continuer ?"</span>;
+                opts.buttons = {<span class="hljs-string">"Annuler"</span>, <span class="hljs-string">"OK"</span>};
+                _modal-&gt;open(opts, [<span class="hljs-keyword">this</span>](<span class="hljs-keyword">int</span> index) {
+                    <span class="hljs-keyword">if</span> (index == <span class="hljs-number">1</span>) {
+                        <span class="hljs-comment">// OK: exécuter une action</span>
+                        <span class="hljs-comment">// ... votre logique ...</span>
+                    }
+                    <span class="hljs-comment">// Fermeture implicite et retour au focus contenu</span>
+                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">auto</span> pc = getPageControl()) pc-&gt;focusContent();
+                });
+            }
+        },
+        <span class="hljs-number">0</span>
+    });
+
+    <span class="hljs-keyword">return</span> PageInfo(<span class="hljs-built_in">std</span>::move(components), fondPage,
+                    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::function&lt;<span class="hljs-keyword">void</span>(<span class="hljs-keyword">void</span>)&gt;&gt;{},
+                    <span class="hljs-built_in">std</span>::move(scheduled));
+}
+</code></pre>
+<h2 id="gestion-de-l-encodeur-et-du-focus">Gestion de l&#39;Encodeur et du Focus</h2>
+<p>L&#39;encodeur rotatif est le principal moyen d&#39;interaction:</p>
+<ul>
+<li><strong>Rotation</strong>: Utilisée pour naviguer entre les pages (quand le focus est sur le <code>PageControl</code>), ou pour changer le focus entre les composants d&#39;une page, ou encore pour ajuster des valeurs (SpinEdit) ou faire défiler des listes (ListBox, TextArea).</li>
+<li><strong>Clic (Bouton de l&#39;Encodeur)</strong>: Utilisé pour sélectionner une page, activer un bouton, cocher une case, confirmer une sélection dans une liste ou une combobox.</li>
+<li><strong>Bouton d&#39;Échappement Externe (<code>BOUTON_ESC</code>)</strong>: Un bouton physique dédié qui permet de ramener le focus sur le <code>UIEncoderPageControl</code> (les onglets), offrant un moyen rapide de naviguer entre les pages depuis n&#39;importe quel composant.</li>
+</ul>
+<p>Le système de focus est hiérarchique:</p>
+<ol>
+<li><strong>Focus sur le <code>UIEncoderPageControl</code></strong>: La rotation de l&#39;encodeur change la page active. Un clic sélectionne la page et déplace le focus vers le premier composant interactif de cette page.</li>
+<li><strong>Focus sur les Composants de la Page</strong>: Une fois sur une page, la rotation de l&#39;encodeur déplace le focus entre les composants interactifs de cette page. Un clic active le composant actuellement en focus.</li>
+</ol>
+<h2 id="r-glage-de-la-sensibilit-de-l-encodeur-par-page">Réglage de la sensibilité de l’encodeur par page</h2>
+<p>La sensibilité (seuil de crans) et l’accélération de l’encodeur peuvent être configurées globalement et par page dans <code>ApplicationManager.cpp</code>.</p>
+<p>1) Valeurs par défaut (appliquées à toutes les pages):</p>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Dans setup(), après _pageConfigs.resize(pages.size())</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;cfg : _pageConfigs) {
+    cfg.encoderThreshold = <span class="hljs-number">2</span>;   <span class="hljs-comment">// 1 = très sensible; 2+ = plus filtré</span>
+    cfg.accelEnabled = <span class="hljs-literal">false</span>;   <span class="hljs-comment">// activer/désactiver l'accélération</span>
+    cfg.accelThresholdUs = <span class="hljs-number">4000</span>;<span class="hljs-comment">// si accel: intervalle max (µs) entre crans pour déclencher</span>
+    cfg.accelStep = <span class="hljs-number">2</span>;          <span class="hljs-comment">// si accel: pas additionnel en cas d’accélération</span>
+}
+</code></pre>
+<p>2) Personnaliser certaines pages après les valeurs par défaut:</p>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Exemple: page 5 très sensible avec accélération</span>
+_pageConfigs[<span class="hljs-number">5</span>].encoderThreshold = <span class="hljs-number">1</span>;
+_pageConfigs[<span class="hljs-number">5</span>].accelEnabled = true;
+_pageConfigs[<span class="hljs-number">5</span>].accelThresholdUs = <span class="hljs-number">3000</span>;
+_pageConfigs[<span class="hljs-number">5</span>].accelStep = <span class="hljs-number">3</span>;
+</code></pre>
+<p>3) Application automatique à chaque changement de page:</p>
+<ul>
+<li>À chaque <code>onPageChanged</code>, <code>ApplicationManager</code> appelle <code>_applyEncoderConfigForPage(index)</code>,
+ce qui met à jour le seuil interne et active/désactive l’accélération de l’encodeur.</li>
+</ul>
+<p>Conseils:</p>
+<ul>
+<li><strong>encoderThreshold = 1</strong>: très réactif mais peut trembler si l’encodeur est bruyant.</li>
+<li><strong>accelStep trop grand</strong>: peut provoquer des sauts; tester des valeurs 2–3.</li>
+<li>Assurez-vous que <code>_pageConfigs</code> est bien redimensionné à <code>pages.size()</code> avant les overrides.</li>
+</ul>
+<h2 id="gestion-de-l-nergie-mise-en-veille-">Gestion de l&#39;Énergie (Mise en Veille)</h2>
+<p>Le <code>SleepManager</code> est configuré pour:</p>
+<ul>
+<li><strong>Détection d&#39;Inactivité</strong>: Surveille l&#39;activité de l&#39;encodeur et des boutons.</li>
+<li><strong>Fondu de l&#39;Écran</strong>: Après une période d&#39;inactivité, la luminosité de l&#39;écran diminue progressivement avant de s&#39;éteindre complètement.</li>
+<li><strong>Mise en Veille Légère</strong>: L&#39;appareil peut entrer en mode de veille légère pour économiser l&#39;énergie.</li>
+<li><strong>Réveil</strong>: Toute interaction avec l&#39;encodeur ou les boutons réactive l&#39;écran et réinitialise le minuteur d&#39;inactivité.</li>
+</ul>
+<h2 id="configuration-et-mat-riel">Configuration et Matériel</h2>
+<p>Ce projet est conçu pour être exécuté sur une carte ESP32 (spécifiquement <code>esp32doit-devkit-v1</code> dans la configuration <code>platformio.ini</code>).</p>
+<ul>
+<li><strong>Écran TFT</strong>: Un écran compatible avec la bibliothèque <code>TFT_eSPI</code> (configuration pour ST7796, 320x480 pixels).</li>
+<li><strong>Encodeur Rotatif</strong>: Connecté aux broches GPIO spécifiées dans <code>ApplicationManager.cpp</code> (CLK, DT, SW).</li>
+<li><strong>Broche de Rétroéclairage TFT</strong>: Contrôlée via <code>analogWrite</code> pour la gestion de la luminosité.</li>
+<li><strong>Bouton d&#39;Échappement</strong>: Une broche GPIO dédiée pour le bouton de retour au <code>PageControl</code>.</li>
+</ul>
+<p>Les broches spécifiques sont définies dans <code>ApplicationManager.cpp</code> et <code>platformio.ini</code>.</p>
+<h2 id="comment-utiliser-compiler">Comment Utiliser / Compiler</h2>
+<ol>
+<li><strong>Prérequis</strong>: Assurez-vous d&#39;avoir PlatformIO IDE installé (extension pour VS Code recommandée).</li>
+<li><strong>Cloner le Dépôt</strong>: Clonez ce dépôt sur votre machine locale.</li>
+<li><strong>Ouvrir dans PlatformIO</strong>: Ouvrez le dossier du projet dans PlatformIO.</li>
+<li><strong>Dépendances</strong>: PlatformIO devrait automatiquement installer les bibliothèques listées dans <code>platformio.ini</code> (<code>TFT_eSPI</code>, <code>U8g2_for_TFT_eSPI</code>, et les bibliothèques de composants UI personnalisées).</li>
+<li><strong>Compiler et Téléverser</strong>: Utilisez les commandes &quot;Build&quot; et &quot;Upload&quot; de PlatformIO pour compiler le code et le téléverser sur votre carte ESP32.</li>
+</ol>
+<h2 id="auteur-remerciements">Auteur / Remerciements</h2>
+<p>Développé par HAMMOU Mohammed el Amine.
+ some basic, sample markdown.</p>
+<h2 id="second-heading">Second Heading</h2>
+<ul>
+<li>Unordered lists, and:<ol>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ol>
+</li>
+<li>More</li>
+</ul>
+<blockquote>
+<p>Blockquote</p>
+</blockquote>
+<p>And <strong>bold</strong>, <em>italics</em>, and even <em>italics and later <strong>bold</strong></em>. Even <del>strikethrough</del>. <a href="https://markdowntohtml.com">A link</a> to somewhere.</p>
+<p>And code highlighting:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> foo = <span class="hljs-string">'bar'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baz</span><span class="hljs-params">(s)</span> </span>{
+   <span class="hljs-keyword">return</span> foo + <span class="hljs-string">':'</span> + s;
+}
+</code></pre>
+<p>Or inline code like <code>var foo = &#39;bar&#39;;</code>.</p>
+<p>Or an image of bears</p>
+<p><img src="http://placebear.com/200/200" alt="bears"></p>
+<p>The end ...</p>
+
+            <div class="markdown-content">
+                <h1>TestComposants_Encoder-1</h1>
+                <p>Un framework UI modulaire pour ESP32...</p>
+                <!-- Le reste du HTML converti -->
+            </div>
+        </div>
+    </section>
+</body>
+</html>
