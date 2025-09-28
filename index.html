@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Ajoutez marked.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.10/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
 </head>
 <body>
     <header>
@@ -36,26 +36,7 @@
         </section>
     </main>
 
-    <script>
-    // URL brute du README.md sur GitHub
-    const readmeUrl = 'https://github.com/Aminehammou/TestComposants_Encoder/blob/main/README.md';
-
-    fetch(readmeUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erreur HTTP : ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(markdown => {
-            document.getElementById('markdown-container').innerHTML = marked.parse(markdown);
-        })
-        .catch(error => {
-            console.error('Erreur :', error);
-            document.getElementById('markdown-container').innerHTML =
-                `<p style="color: red;">Erreur de chargement du README : ${error.message}</p>`;
-        });
-</script>
+    <script src="assets/js/main.js"></script>
 
 </body>
 </html>
